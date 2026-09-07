@@ -192,6 +192,55 @@
     background: color-mix(in srgb, var(--accent) 6%, transparent);
   }
 
+  /* ---------- Header nav ---------- */
+  .nav-link {
+    position: relative;
+    padding-bottom: 3px;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .mobile-nav-panel {
+    background: var(--bg);
+    animation: mobile-nav-in 0.16s ease both;
+  }
+
+  @keyframes mobile-nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav-panel {
+      animation: none;
+    }
+    .nav-link::after {
+      transition: none;
+    }
+  }
+
   /* ---------- Theme-aware logo swap ---------- */
   .theme-dark {
     display: block;
