@@ -6,4 +6,4 @@ export const sectionHeading =
 export const sectionLede = "text-text-dim text-base";
 export const shell = "mx-auto max-w-[1120px] px-6";
 export const ghostBtn =
-  "inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-text no-underline transition hover:-translate-y-px hover:border-border-strong";
+  "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-text no-underline transition hover:-translate-y-px hover:border-border-strong";
