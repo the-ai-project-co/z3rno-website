@@ -39,6 +39,18 @@ const PILLARS = [
 
 const TIERS = ["Working", "Episodic", "Semantic", "Procedural"];
 
+// Real, currently-true engineering facts — re-verify against `cargo test
+// --workspace` (+ bindings/python, bindings/typescript) before bumping.
+// No usage/adoption metrics belong here: z3rno is pre-launch with no
+// traffic to report, so this strip stays scoped to what's actually true
+// of the code today, never a stand-in for real usage numbers it doesn't have.
+const STATS = [
+  { value: "77", label: "tests passing" },
+  { value: "4", label: "memory tiers" },
+  { value: "2", label: "storage backends" },
+  { value: "2", label: "language bindings" },
+];
+
 const LADDER = [
   {
     step: "01",
@@ -117,14 +129,14 @@ export default function Home() {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-[15.5px] font-semibold text-accent-text no-underline transition hover:-translate-y-px"
+                  className="btn-primary inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[15.5px] font-semibold text-accent-text no-underline transition hover:-translate-y-px"
                 >
                   <GithubMark />
                   View on GitHub
                 </a>
                 <a
                   href="#status"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3.5 text-[15.5px] font-medium text-text no-underline transition hover:-translate-y-px hover:border-border-strong"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-[15.5px] font-medium text-text no-underline transition hover:-translate-y-px hover:border-border-strong"
                 >
                   Project status
                 </a>
@@ -191,7 +203,7 @@ export default function Home() {
               </p>
             </div>
 
-            <ol className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-xl border border-border md:grid-cols-3 md:divide-x md:divide-y-0">
+            <ol className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border md:grid-cols-3 md:divide-x md:divide-y-0">
               {LADDER.map((l) => (
                 <li
                   key={l.step}
@@ -230,7 +242,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-border">
+            <div className="overflow-hidden rounded-2xl border border-border">
               {PILLARS.map((p, i) => (
                 <div
                   className={`pillar-row grid grid-cols-1 gap-2.5 px-6.5 py-7 md:grid-cols-[200px_1fr] md:gap-8 ${
@@ -249,7 +261,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3.5 rounded-xl border border-border px-6.5 py-5.5">
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3.5 rounded-2xl border border-border px-6.5 py-5.5">
               <span className="font-mono text-xs tracking-[0.06em] text-text-dim uppercase">
                 Memory tiers
               </span>
@@ -302,7 +314,7 @@ export default function Home() {
               <h2 className={sectionHeading}>Where this goes from here</h2>
             </div>
 
-            <div className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-xl border border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            <div className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
               {ROADMAP.map((r) => (
                 <div
                   key={r.phase}
@@ -327,7 +339,7 @@ export default function Home() {
               <h2 className={sectionHeading}>This is genuinely early</h2>
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-7 rounded-xl border border-border bg-bg p-8 sm:p-10 md:grid-cols-[auto_1fr_auto] md:text-left">
+            <div className="grid grid-cols-1 items-center gap-7 rounded-2xl border border-border bg-bg p-8 sm:p-10 md:grid-cols-[auto_1fr_auto] md:text-left">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-3.5 py-1.5 font-mono text-xs tracking-[0.05em] text-warning uppercase whitespace-nowrap">
                 <span className="h-1.5 w-1.5 rounded-full bg-warning" />
                 pre&#8209;launch
@@ -374,7 +386,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {INSTALLS.map((i) => (
                 <div
-                  className="overflow-hidden rounded-lg border border-border bg-bg-subtle"
+                  className="overflow-hidden rounded-xl border border-border bg-bg-subtle"
                   key={i.label}
                 >
                   <div className="flex items-center justify-between border-b border-border px-4 py-3.5">
@@ -420,7 +432,7 @@ function DiagramNode({
 }) {
   return (
     <div
-      className={`min-w-[168px] rounded-lg border border-border bg-bg-subtle px-5.5 py-4 text-center ${
+      className={`min-w-[168px] rounded-xl border border-border bg-bg-subtle px-5.5 py-4 text-center ${
         core ? "diagram-node-core" : ""
       }`}
     >
@@ -477,6 +489,18 @@ function Terminal() {
           </span>
         </code>
       </pre>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-border px-5 py-4.5 sm:grid-cols-4">
+        {STATS.map((s) => (
+          <div key={s.label}>
+            <p className="font-mono text-[19px] font-semibold text-text tabular-nums">
+              {s.value}
+            </p>
+            <p className="text-[11.5px] tracking-[0.02em] text-text-dim uppercase">
+              {s.label}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
