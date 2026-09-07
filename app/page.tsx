@@ -119,6 +119,25 @@ export default function Home() {
                 Apache-2.0 licensed. No packages published yet — see status
                 below.
               </p>
+
+              <div className={styles.specStrip}>
+                <div className={styles.specItem}>
+                  <span className={styles.specLabel}>License</span>
+                  <span className={styles.specValue}>Apache-2.0</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specLabel}>Core</span>
+                  <span className={styles.specValue}>Rust</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specLabel}>Bindings</span>
+                  <span className={styles.specValue}>Python &middot; TypeScript</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specLabel}>Required infra</span>
+                  <span className={styles.specValue}>None</span>
+                </div>
+              </div>
             </div>
 
             <Terminal />
@@ -187,6 +206,82 @@ export default function Home() {
                   {t}
                 </span>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.shell}>
+            <div className={styles.sectionHead}>
+              <p className={styles.eyebrow}>Architecture</p>
+              <h2 className={styles.h2}>What actually runs where</h2>
+              <p className={styles.sectionLede}>
+                One core, called directly by default — a server only enters
+                the picture once you ask for it.
+              </p>
+            </div>
+
+            <div className={styles.diagram}>
+              <div className={`${styles.diagramNode} ${styles.diagramNodeCore}`}>
+                <p className={styles.diagramNodeTitle}>z3rno-engine</p>
+                <p className={styles.diagramNodeMeta}>Rust core &middot; store / recall / forget / audit</p>
+              </div>
+              <div className={styles.diagramConnector} />
+              <div className={styles.diagramRow}>
+                <div className={styles.diagramNode}>
+                  <p className={styles.diagramNodeTitle}>Python bindings</p>
+                  <p className={styles.diagramNodeMeta}>PyO3 &middot; in-process</p>
+                </div>
+                <div className={styles.diagramNode}>
+                  <p className={styles.diagramNodeTitle}>TypeScript bindings</p>
+                  <p className={styles.diagramNodeMeta}>napi-rs &middot; in-process</p>
+                </div>
+                <div className={styles.diagramNode}>
+                  <p className={styles.diagramNodeTitle}>Server (optional)</p>
+                  <p className={styles.diagramNodeMeta}>Axum &middot; production / multi-tenant</p>
+                </div>
+              </div>
+              <div className={styles.diagramConnector} />
+              <div className={styles.diagramNode}>
+                <p className={styles.diagramNodeTitle}>Storage backend</p>
+                <p className={styles.diagramNodeMeta}>Embedded by default &middot; pluggable for production</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.shell}>
+            <div className={styles.sectionHead}>
+              <p className={styles.eyebrow}>Roadmap</p>
+              <h2 className={styles.h2}>Where this goes from here</h2>
+            </div>
+
+            <div className={styles.roadmap}>
+              <div className={`${styles.roadmapStep} ${styles.roadmapStepActive}`}>
+                <p className={styles.roadmapPhase}>Now</p>
+                <h3 className={styles.roadmapTitle}>Embedded core</h3>
+                <p className={styles.roadmapBody}>
+                  Cargo workspace, embedded storage, and the Python/TypeScript
+                  binding scaffolds — the foundation everything else builds on.
+                </p>
+              </div>
+              <div className={styles.roadmapStep}>
+                <p className={styles.roadmapPhase}>Next</p>
+                <h3 className={styles.roadmapTitle}>Production backend &amp; server</h3>
+                <p className={styles.roadmapBody}>
+                  A pluggable production storage backend, the Axum server, and
+                  the real four-verb API across both bindings.
+                </p>
+              </div>
+              <div className={styles.roadmapStep}>
+                <p className={styles.roadmapPhase}>Then</p>
+                <h3 className={styles.roadmapTitle}>v1.0 launch</h3>
+                <p className={styles.roadmapBody}>
+                  Simultaneous release across PyPI, npm, and crates.io, with
+                  the CLI, MCP server, and eval harness alongside it.
+                </p>
+              </div>
             </div>
           </div>
         </section>
