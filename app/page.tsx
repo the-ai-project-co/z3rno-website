@@ -20,7 +20,7 @@ const PILLARS = [
   {
     index: "serve",
     title: "Pluggable production backend",
-    body: "When you outgrow a single process, an optional Axum server handles production and multi-tenant deployments, backed by a storage layer you choose.",
+    body: "When you outgrow a single process, an optional Axum server handles production and multi-tenant deployments, backed by Postgres, pgvector, and Apache AGE.",
   },
   {
     index: "audit",
@@ -47,7 +47,7 @@ const ROADMAP = [
   {
     phase: "Next",
     title: "Production backend & server",
-    body: "A pluggable production storage backend, the Axum server, and the real four-verb API across both bindings.",
+    body: "The Postgres + pgvector + Apache AGE production backend, the Axum server, and the real four-verb API across both bindings.",
     active: false,
   },
   {
@@ -270,7 +270,7 @@ export default function Home() {
               <div className="my-0.5 h-8 w-px bg-border-strong" />
               <DiagramNode
                 title="Storage backend"
-                meta="Embedded by default · pluggable for production"
+                meta="Embedded by default · Postgres + pgvector + AGE for production"
               />
             </div>
           </div>
