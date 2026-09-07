@@ -8,8 +8,8 @@ import { shell } from "@/lib/styles";
  * `#how-it-works`/`#status` are real in-page sections; other pages link
  * back to those sections on `/` instead. */
 export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
-  const howItWorksHref = homeAnchors ? "#how-it-works" : "/#how-it-works";
-  const statusHref = homeAnchors ? "#status" : "/#status";
+  const howItWorksHref = homeAnchors ? "#how-it-works" : `${BASE_PATH}/#how-it-works`;
+  const statusHref = homeAnchors ? "#status" : `${BASE_PATH}/#status`;
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-bg/88 backdrop-blur-md">
