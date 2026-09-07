@@ -20,6 +20,23 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0006",
+    title: "Language bindings (Python + TypeScript)",
+    date: "2026-09-07",
+    summary:
+      "Real z3rno (PyO3) and @z3rno/sdk (napi-rs) packages over z3rno-engine directly — no server/HTTP dependency, embedded SQLite by default, a postgres backend opt-in. store/recall/forget top-level, client.advanced.audit(...) for the audit trail. A real multi-platform release pipeline builds maturin wheels and napi-rs addons across Linux/macOS/Windows (x86_64/ARM64) and publishes to PyPI and npm on a tagged release.",
+    decisions: [
+      "Python ships a sync-only API (a shared Tokio runtime driven internally via block_on, released with allow_threads so it doesn't hold the GIL) — PyO3's async story is less mature, and the acceptance bar is a zero-ceremony `python -c \"import z3rno; ...\"`. TypeScript ships an async-only API (native Promises via napi-rs's tokio_rt feature) — blocking Node's single-threaded event loop would be a real anti-pattern. No sync/async duality in either language, unlike the old SDK's Client/AsyncClient split.",
+      "No .admin/.conversations namespaces, despite the original plan doc naming them: the Rust engine has no admin/budgets or conversations/sessions concept at all — those are server-only HTTP concerns (slice 0005), not engine-embedded ones. Built client.advanced.audit(...) only, the one advanced operation that actually exists.",
+      "Two independent engineers built the Python and TypeScript bindings in parallel against the same written API contract, entirely within their own bindings/python and bindings/typescript directories — zero file overlap, so no shared-file collision risk at all this time, not just avoided by discipline.",
+      "The release pipeline's multi-platform build matrix follows standard maturin-action/napi-rs conventions but hasn't been exercised against a real tag push yet — PyPI's trusted-publisher and npm's provenance trust relationships need configuring for this org first, a one-time step outside CI's control.",
+    ],
+    links: [
+      { label: "z3rno #19", href: `${Z}/pull/19` },
+      { label: "z3rno #18 (issue)", href: `${Z}/issues/18` },
+    ],
+  },
+  {
     tag: "0005",
     title: "Server component",
     date: "2026-09-07",
