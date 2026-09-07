@@ -170,14 +170,32 @@ a {
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: 96px 0 88px;
+  position: relative;
+  padding: 136px 0 104px;
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(560px 420px at 12% -12%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(circle, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1.6px);
+  background-size: auto, 28px 28px;
+  background-repeat: no-repeat, repeat;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
 }
 
 .heroGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
   align-items: center;
 }
 
@@ -204,11 +222,11 @@ a {
 }
 
 .h1 {
-  font-size: clamp(2.3rem, 4.2vw, 3.4rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 650;
-  margin: 0 0 22px;
+  font-size: clamp(2.75rem, 6vw, 4.75rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  font-weight: 680;
+  margin: 0 0 24px;
 }
 
 .h1 em {
@@ -217,11 +235,11 @@ a {
 }
 
 .lede {
-  font-size: 18px;
+  font-size: clamp(17px, 1.6vw, 19px);
   line-height: 1.6;
   color: var(--text-dim);
-  max-width: 52ch;
-  margin: 0 0 32px;
+  max-width: 50ch;
+  margin: 0 0 36px;
 }
 
 .heroActions {
@@ -235,22 +253,26 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 12px 20px;
-  border-radius: 7px;
-  font-size: 15px;
-  font-weight: 550;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 15.5px;
+  font-weight: 560;
   text-decoration: none;
   border: 1px solid transparent;
-  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .btnPrimary {
   background: var(--accent);
   color: var(--accent-text);
+  box-shadow: 0 1px 0 0 color-mix(in srgb, white 15%, transparent) inset,
+    0 14px 28px -14px color-mix(in srgb, var(--accent) 65%, transparent);
 }
 
 .btnPrimary:hover {
   transform: translateY(-1px);
+  box-shadow: 0 1px 0 0 color-mix(in srgb, white 15%, transparent) inset,
+    0 18px 32px -14px color-mix(in srgb, var(--accent) 75%, transparent);
 }
 
 .btnGhost {
@@ -260,21 +282,56 @@ a {
 
 .btnGhost:hover {
   border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 
 .heroNote {
-  margin-top: 18px;
+  margin-top: 22px;
   font-size: 13px;
   color: var(--text-dim);
 }
 
+/* ---------- Hero spec strip ---------- */
+.specStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 40px;
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.specLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.specValue {
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--text);
+}
+
 /* ---------- Terminal ---------- */
 .terminal {
+  position: relative;
+  z-index: 1;
   background: var(--bg-subtle);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 40px 80px -32px rgba(0, 0, 0, 0.55),
+    0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent),
+    0 20px 60px -20px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .terminalBar {
@@ -393,7 +450,12 @@ a {
 
 .pillar {
   background: var(--bg-subtle);
-  padding: 28px 24px 30px;
+  padding: 30px 26px 32px;
+  transition: background 0.15s ease;
+}
+
+.pillar:hover {
+  background: color-mix(in srgb, var(--bg-subtle) 70%, var(--bg-card));
 }
 
 .pillarIndex {
@@ -451,6 +513,107 @@ a {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
+}
+
+/* ---------- Architecture diagram ---------- */
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.diagramRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.diagramNode {
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  border-radius: 10px;
+  padding: 16px 22px;
+  text-align: center;
+  min-width: 168px;
+}
+
+.diagramNodeCore {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-subtle));
+}
+
+.diagramNodeTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 3px;
+}
+
+.diagramNodeMeta {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.diagramConnector {
+  width: 1px;
+  height: 32px;
+  background: var(--border-strong);
+  margin: 2px 0;
+}
+
+.diagramConnectorH {
+  display: none;
+}
+
+/* ---------- Roadmap ---------- */
+.roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.roadmapStep {
+  padding: 30px 26px;
+  border-left: 1px solid var(--border);
+}
+
+.roadmapStep:first-child {
+  border-left: none;
+}
+
+.roadmapStepActive {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.roadmapPhase {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.roadmapTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.roadmapBody {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0;
 }
 
 /* ---------- Status ---------- */
@@ -647,6 +810,19 @@ a {
     grid-template-columns: 1fr;
     text-align: left;
     justify-items: start;
+  }
+
+  .roadmap {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmapStep {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .roadmapStep:first-child {
+    border-top: none;
   }
 }
 
