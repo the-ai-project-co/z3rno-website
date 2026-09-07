@@ -44,14 +44,14 @@ const INSTALLS = [
 const ROADMAP = [
   {
     phase: "Now",
-    title: "Embedded core",
-    body: "A working embedded engine — real store, recall, forget, and audit against SQLite, an embedded vector index, and an embedded graph — plus the Python/TypeScript binding scaffolds it all builds on.",
+    title: "Core engine, both backends",
+    body: "A working engine — real store, recall, forget, and audit — against two backends behind the same trait interface: an embedded default (SQLite, an embedded vector index, an embedded graph) and Postgres + pgvector + Apache AGE for production, plus the Python/TypeScript binding scaffolds it all builds on.",
     active: true,
   },
   {
     phase: "Next",
-    title: "Production backend & server",
-    body: "The Postgres + pgvector + Apache AGE production backend, the Axum server, and the real four-verb API across both bindings.",
+    title: "Server & real bindings",
+    body: "The Axum server and the real four-verb API across both Python and TypeScript bindings, so the engine is actually installable.",
     active: false,
   },
   {
@@ -266,13 +266,12 @@ export default function Home() {
               </span>
               <div className="space-y-2.5 text-[15px] text-text-dim [&_strong]:text-text">
                 <p>
-                  The core engine now has a{" "}
-                  <strong>
-                    working embedded backend
-                  </strong>{" "}
-                  — store, recall, forget, and a hash-chained audit log, all
-                  running against SQLite and in-process vector/graph
-                  indexes. Nothing is installable yet — no packages are
+                  The core engine now runs against{" "}
+                  <strong>two complete backends</strong> — store, recall,
+                  forget, and a hash-chained audit log, working identically
+                  against an embedded default (SQLite, in-process vector and
+                  graph indexes) and Postgres + pgvector + Apache AGE for
+                  production. Nothing is installable yet — no packages are
                   published on any registry.
                 </p>
                 <p className="max-w-[62ch]">
