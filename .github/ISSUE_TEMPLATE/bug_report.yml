@@ -1,0 +1,24 @@
+name: 🐛 Bug Report
+description: Report a problem with the site (broken page, styling, build)
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What's broken?
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: Page / URL
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser / device
+    validations:
+      required: false
