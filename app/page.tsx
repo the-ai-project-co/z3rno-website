@@ -15,7 +15,7 @@ const PILLARS = [
     index: "embed",
     title: "Embeddable by default",
     body: "No database to provision, no service to deploy. z3rno runs inside your process with zero required infrastructure — add the dependency and start calling store and recall.",
-    proof: "Engine::embedded() — SQLite + in-process vector and graph indexes, no network call",
+    proof: "MemoryEngine::embedded(sqlite_path) — SQLite + in-process vector and graph indexes, no network call",
   },
   {
     index: "sdk",
@@ -27,7 +27,7 @@ const PILLARS = [
     index: "serve",
     title: "Pluggable production backend",
     body: "When you outgrow a single process, swap in Postgres, pgvector, and Apache AGE against the same trait interface — no code changes upstream.",
-    proof: "Engine::postgres(url) — same store/recall/forget/audit, a different backend",
+    proof: "MemoryEngine::postgres(database_url) — same store/recall/forget/audit, a different backend",
   },
   {
     index: "audit",
@@ -43,7 +43,7 @@ const LADDER = [
   {
     step: "01",
     title: "Embed it",
-    body: "Add the dependency, call Engine::embedded(). No provisioning, no service to run.",
+    body: "Add the dependency, call MemoryEngine::embedded(). No provisioning, no service to run.",
     proof: "cargo add z3rno-engine",
     status: "shipped" as const,
   },
@@ -51,15 +51,15 @@ const LADDER = [
     step: "02",
     title: "Go to production",
     body: "Swap in Postgres, pgvector, and Apache AGE when you need durability and multi-tenant isolation — RLS-enforced, one AGE graph per tenant. Same trait, same four verbs.",
-    proof: "Engine::postgres(database_url)",
+    proof: "MemoryEngine::postgres(database_url)",
     status: "shipped" as const,
   },
   {
     step: "03",
     title: "Put it on the network",
-    body: "The Axum server exposes the same engine over HTTP, for multi-language or multi-service deployments.",
-    proof: "slice 0005 — not yet shipped",
-    status: "next" as const,
+    body: "An Axum server exposes the same engine over HTTP — JWT + API-key auth, cross-tenant budget admin, health checks, and metrics — for multi-language or multi-tenant deployments.",
+    proof: "z3rno-server — the same four verbs, over HTTP",
+    status: "shipped" as const,
   },
 ];
 
@@ -72,20 +72,20 @@ const INSTALLS = [
 const ROADMAP = [
   {
     phase: "Now",
-    title: "Core engine, both backends",
-    body: "A working engine — real store, recall, forget, and audit — against two backends behind the same trait interface: an embedded default (SQLite, an embedded vector index, an embedded graph) and Postgres + pgvector + Apache AGE for production, plus the Python/TypeScript binding scaffolds it all builds on.",
+    title: "Engine, server, and real bindings",
+    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, and real, tested Python and TypeScript bindings compiled directly against the Rust core. Nothing published to a registry yet — everything above runs from source today.",
     active: true,
   },
   {
     phase: "Next",
-    title: "Server & real bindings",
-    body: "The Axum server and the real four-verb API across both Python and TypeScript bindings, so the engine is actually installable.",
+    title: "CLI, crates.io, and release distribution",
+    body: "The z3rno-cli binary, a GHCR server image, and the multi-platform build/publish pipelines that make every package above actually installable — the last mile between working code and a package manager.",
     active: false,
   },
   {
     phase: "Then",
     title: "v1.0 launch",
-    body: "Simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, and eval harness alongside it.",
+    body: "A simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, and eval harness alongside it, and the new site live to receive it.",
     active: false,
   },
 ];
@@ -186,8 +186,8 @@ export default function Home() {
             <div className="mb-12 max-w-[640px]">
               <h2 className={sectionHeading}>How far you can take one engine</h2>
               <p className={sectionLede}>
-                The same trait interface, three capability tiers. Two are
-                already real.
+                The same trait interface, three capability tiers. All three
+                are real.
               </p>
             </div>
 
@@ -444,33 +444,34 @@ function Terminal() {
           <span className="prompt">$ </span>
           <span className="cmd">cargo add z3rno-engine</span>
           {"\n\n"}
-          <span className="kw">use</span> z3rno::
-          <span className="type">Engine</span>;{"\n\n"}
+          <span className="kw">use</span> z3rno_engine::
+          <span className="type">MemoryEngine</span>;{"\n\n"}
           <span className="kw">let</span> engine ={" "}
-          <span className="type">Engine</span>::
-          <span className="fn">embedded</span>()?;{"\n\n"}
+          <span className="type">MemoryEngine</span>::
+          <span className="fn">embedded</span>(
+          <span className="str">&quot;z3rno.db&quot;</span>)?;{"\n\n"}
           engine.
           <span className="fn">store</span>(
-          <span className="type">Memory</span>::
-          <span className="fn">new</span>(
+          <span className="str">&quot;tenant-1&quot;</span>, Tier::Episodic,{"\n"}
+          {"  "}
           <span className="str">
             &quot;user prefers dark roast coffee&quot;
           </span>
-          ))?;{"\n\n"}
+          .into(), embedding, metadata, links).await?;{"\n\n"}
           <span className="kw">let</span> hits = engine.
           <span className="fn">recall</span>(
-          <span className="str">
-            &quot;what does the user prefer?&quot;
-          </span>
-          )?;{"\n\n"}
+          <span className="str">&quot;tenant-1&quot;</span>, embedding, 5).await?;
+          {"\n\n"}
           engine.
-          <span className="fn">forget</span>(hits[0].id)?;{" "}
+          <span className="fn">forget</span>(
+          <span className="str">&quot;tenant-1&quot;</span>, hits[0].id).await?;{" "}
           <span className="comment">
             {"// returns a proof of erasure"}
           </span>
           {"\n\n"}
-          <span className="kw">let</span> log = engine.
-          <span className="fn">audit</span>(since)?;{" "}
+          engine.advanced().
+          <span className="fn">audit</span>(
+          <span className="str">&quot;tenant-1&quot;</span>).await?;{" "}
           <span className="comment">
             {"// hash-chained, append-only"}
           </span>
