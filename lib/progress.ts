@@ -20,6 +20,22 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0004",
+    title: "Production backend (Postgres + pgvector + AGE)",
+    date: "2026-09-07",
+    summary:
+      "PostgresEngineBackend/PostgresVectorBackend/PostgresGraphBackend implement the same traits the embedded backend does, so MemoryEngine::postgres(database_url) drops in next to MemoryEngine::embedded() with no other code caring which is active. Auto-provisions its own extensions against any stock Postgres — no bespoke image. 41 tests total, all passing against a real live instance.",
+    decisions: [
+      "Resolves the isolation gap slice 0002's decision doc flagged: AGE's graph tables aren't covered by Postgres RLS, so each tenant gets its own AGE graph — its own Postgres schema — instead of one shared graph filtered by a property. Structural isolation, not the filter-discipline pattern that got Neo4j+Qdrant ruled out in slice 0002.",
+      "Compatibility enforcement done by making an unsupported backend combo unconstructable through the public API at all, not a runtime check — the engine's own constructor is private; embedded() and postgres() are the only ways in from outside the crate.",
+      "Real bugs found and fixed against the live instance, not just the intended design work: relying on RLS alone (without an explicit WHERE tenant_id filter) let a superuser connection read cross-tenant data; LOAD 'age' turned out to require Postgres superuser, which would have broken every real non-superuser deployment; an unqualified CREATE TABLE landed in the wrong Postgres schema; a DROP-then-CREATE trigger pattern opened a real race letting a concurrent write slip past the audit-immutability guarantee.",
+    ],
+    links: [
+      { label: "z3rno #12", href: `${Z}/pull/12` },
+      { label: "z3rno #11 (issue)", href: `${Z}/issues/11` },
+    ],
+  },
+  {
     tag: "0003",
     title: "Core engine + embedded backend",
     date: "2026-09-07",
