@@ -32,6 +32,7 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - **Header rebuild.** Fixed three issues flagged after review: no mobile-nav collapse (replaced an ad hoc `hidden sm:inline` on a single link with a real hamburger panel below `md`), a redundant icon+wordmark logo lockup (now wordmark-only, matching the footer), and a plain-color-only nav hover (now a grown-in accent underline).
 - **Header nav treatment.** Explored 35 systematic variants (a 7×5 matrix) in a comparison artifact and shipped the one picked: a bordered pill capsule of `$`-prefixed command-style labels, a blinking terminal caret, and an icon-only GitHub button.
 - **Hero tagline.** Replaced "The memory engine your agents run inside, not around." with "Persistent memory for AI agents, compiled into your process." — the old line relied on wordplay instead of stating the mechanism.
+- **Slice 0005 entry.** `/progress` updated for the `z3rno-server` crate: routes, auth, cross-tenant budget admin, and observability, including the closed health-check gap.
 
 ## Local development
 

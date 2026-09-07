@@ -20,6 +20,23 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0005",
+    title: "Server component",
+    date: "2026-09-07",
+    summary:
+      "The z3rno-server crate: an Axum HTTP API in front of the engine, for shared, production, and multi-tenant deployments. Routes mirroring the old API's shape, JWT + API-key auth behind a frozen extractor contract, superadmin cross-tenant budget admin, and real two-tier health checks + Prometheus metrics + an opt-in OpenTelemetry bridge. 63 tests total, all passing under every feature combination.",
+    decisions: [
+      "Closes a real gap: the old Python server's /v1/ready unconditionally reported every component healthy with no check ever run. The new /v1/health and /v1/health/detailed run genuine probes against the live engine and cache backends, each isolated in its own timeout so a hang can't take the handler down.",
+      "The shared/structural files (Cargo.toml, the router, the error type, the cache trait, the auth contract) were built directly first and verified compiling, then three engineers implemented routes/auth/observability against strictly non-overlapping files in parallel — avoiding the shared-file collision slice 0004 hit when two engineers both touched the same file.",
+      "No async job queue: nothing in this slice does long-running async work, so tokio::spawn (already the pattern for health-check isolation) covers it. Revisit only if a future pipeline proves a real need.",
+      "Admin/budgets stores overrides in the cache backend rather than a tenants table — this crate has no tenant registry, matching the old system's own reasoning for the same cross-tenant design ('no engine change and no privileged database role required').",
+    ],
+    links: [
+      { label: "z3rno #17", href: `${Z}/pull/17` },
+      { label: "z3rno #16 (issue)", href: `${Z}/issues/16` },
+    ],
+  },
+  {
     tag: "0004",
     title: "Production backend (Postgres + pgvector + AGE)",
     date: "2026-09-07",
