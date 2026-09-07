@@ -93,6 +93,11 @@
     background: var(--accent);
     color: var(--accent-text);
   }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 }
 
 @layer components {
@@ -152,18 +157,28 @@
       0 18px 32px -14px color-mix(in srgb, var(--accent) 75%, transparent);
   }
 
-  /* ---------- Pillars: hairline-divided grid via background bleed-through ---------- */
-  .pillars-grid {
-    background: var(--border);
-  }
-
-  .pillar-cell {
-    background: var(--bg-subtle);
+  /* ---------- Pillars: proof-line list, not a card grid ---------- */
+  .pillar-row {
     transition: background 0.15s ease;
   }
 
-  .pillar-cell:hover {
-    background: color-mix(in srgb, var(--bg-subtle) 70%, var(--bg-card));
+  .pillar-row:hover {
+    background: color-mix(in srgb, var(--bg-subtle) 60%, transparent);
+  }
+
+  .pillar-proof {
+    color: var(--accent);
+  }
+
+  /* ---------- Adoption ladder ---------- */
+  .ladder-step-index {
+    color: color-mix(in srgb, var(--text-dim) 70%, transparent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ladder-step-shipped .ladder-step-tag {
+    color: var(--success);
+    border-color: color-mix(in srgb, var(--success) 45%, var(--border));
   }
 
   /* ---------- Architecture diagram ---------- */
