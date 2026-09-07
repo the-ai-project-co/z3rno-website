@@ -25,6 +25,8 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - Design pass (hero, architecture diagram, roadmap sections), a terminal-overflow fix, and a Tailwind CSS v4 migration.
 - **Slice 0002 follow-up.** Architecture/pillar/roadmap copy updated to name the actual production backend decided in that slice (Postgres + pgvector + Apache AGE).
 - **Slice 0003 follow-up.** Roadmap and status copy updated to reflect the working embedded engine (store/recall/forget/audit) that slice shipped, replacing "Cargo workspace skeleton and binding scaffolds."
+- **`/progress` page.** A chronological, build-in-public log of what each slice actually shipped — real decisions and tradeoffs, real PR/issue links — added directly in response to feedback that the site had stayed a single landing page through several slices of real engineering work. Updating it is now part of every slice's website-update step, alongside landing-page copy.
+- **Slice 0004 follow-up.** Roadmap and status copy updated for the production backend (Postgres + pgvector + Apache AGE), which now sits alongside the embedded backend rather than being a "Next" item.
 
 ## Local development
 
