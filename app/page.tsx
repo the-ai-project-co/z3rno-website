@@ -104,14 +104,13 @@ export default function Home() {
                 pre&#8209;launch &middot; building in the open
               </span>
               <h1 className="mb-6 text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.03] font-bold tracking-[-0.03em]">
-                The memory engine your agents run{" "}
-                <em className="text-accent not-italic">inside</em>, not around.
+                Persistent memory for AI agents,{" "}
+                <em className="text-accent not-italic">compiled into your process</em>.
               </h1>
               <p className="mb-9 max-w-[50ch] text-[clamp(17px,1.6vw,19px)] leading-relaxed text-text-dim">
-                z3rno is an open-source memory engine for AI agents — a Rust
-                core with native Python and TypeScript bindings. Store,
-                recall, forget, and audit memory without standing up a
-                service first.
+                z3rno is an open-source Rust core with native Python and
+                TypeScript bindings — no client, no server. Store, recall,
+                forget, and audit are direct function calls, not API calls.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <a
