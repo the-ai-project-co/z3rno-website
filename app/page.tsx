@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { GithubMark } from "@/components/GithubMark";
 import { BASE_PATH, GITHUB_URL } from "@/lib/site";
-import { eyebrow, sectionHeading, sectionLede, shell, ghostBtn } from "@/lib/styles";
+import { sectionHeading, sectionLede, shell, ghostBtn } from "@/lib/styles";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -15,25 +15,53 @@ const PILLARS = [
     index: "embed",
     title: "Embeddable by default",
     body: "No database to provision, no service to deploy. z3rno runs inside your process with zero required infrastructure — add the dependency and start calling store and recall.",
+    proof: "Engine::embedded() — SQLite + in-process vector and graph indexes, no network call",
   },
   {
     index: "sdk",
     title: "Native bindings, not HTTP",
     body: "The Python and TypeScript SDKs aren't clients wrapping a REST API — they're native bindings to the same Rust core. The SDK is the engine, not a call to one.",
+    proof: "PyO3 (z3rno) and napi-rs (z3rno-sdk-native) compile the engine directly into your process",
   },
   {
     index: "serve",
     title: "Pluggable production backend",
-    body: "When you outgrow a single process, an optional Axum server handles production and multi-tenant deployments, backed by Postgres, pgvector, and Apache AGE.",
+    body: "When you outgrow a single process, swap in Postgres, pgvector, and Apache AGE against the same trait interface — no code changes upstream.",
+    proof: "Engine::postgres(url) — same store/recall/forget/audit, a different backend",
   },
   {
     index: "audit",
     title: "Auditable by design",
     body: "Every write is traceable. forget returns a proof of erasure, and audit queries an append-only, hash-chained history of what changed and when.",
+    proof: "Postgres tier: a DB-level trigger rejects UPDATE/DELETE on audit rows outright",
   },
 ];
 
 const TIERS = ["Working", "Episodic", "Semantic", "Procedural"];
+
+const LADDER = [
+  {
+    step: "01",
+    title: "Embed it",
+    body: "Add the dependency, call Engine::embedded(). No provisioning, no service to run.",
+    proof: "cargo add z3rno-engine",
+    status: "shipped" as const,
+  },
+  {
+    step: "02",
+    title: "Go to production",
+    body: "Swap in Postgres, pgvector, and Apache AGE when you need durability and multi-tenant isolation — RLS-enforced, one AGE graph per tenant. Same trait, same four verbs.",
+    proof: "Engine::postgres(database_url)",
+    status: "shipped" as const,
+  },
+  {
+    step: "03",
+    title: "Put it on the network",
+    body: "The Axum server exposes the same engine over HTTP, for multi-language or multi-service deployments.",
+    proof: "slice 0005 — not yet shipped",
+    status: "next" as const,
+  },
+];
 
 const INSTALLS = [
   { label: "Python", cmd: "pip install z3rno" },
@@ -122,7 +150,6 @@ export default function Home() {
         <section className="border-b border-border px-0 py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>The problem</p>
               <h2 className={sectionHeading}>
                 Every framework re-invents agent memory
               </h2>
@@ -155,25 +182,70 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="how-it-works" className="border-b border-border py-16 sm:py-22 lg:py-22">
+        <section className="border-b border-border py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>How it works</p>
-              <h2 className={sectionHeading}>Four ideas, one engine</h2>
+              <h2 className={sectionHeading}>How far you can take one engine</h2>
               <p className={sectionLede}>
-                z3rno is built around a small set of decisions we&rsquo;re not
-                walking back.
+                The same trait interface, three capability tiers. Two are
+                already real.
               </p>
             </div>
 
-            <div className="pillars-grid grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border sm:grid-cols-2 lg:grid-cols-4">
-              {PILLARS.map((p) => (
-                <div className="pillar-cell px-6 pt-7 pb-8" key={p.index}>
-                  <p className="mb-4.5 font-mono text-xs text-text-dim">{p.index}</p>
-                  <h3 className="mb-2.5 text-base font-semibold tracking-[-0.01em]">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-text-dim">{p.body}</p>
+            <ol className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-xl border border-border md:grid-cols-3 md:divide-x md:divide-y-0">
+              {LADDER.map((l) => (
+                <li
+                  key={l.step}
+                  className={`px-6.5 py-7.5 ${l.status === "shipped" ? "ladder-step-shipped" : ""}`}
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="ladder-step-index font-mono text-[13px]">{l.step}</span>
+                    <span
+                      className={`ladder-step-tag rounded-full border border-border px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-[0.05em] ${
+                        l.status === "shipped" ? "" : "text-warning"
+                      }`}
+                    >
+                      {l.status === "shipped" ? "Shipped" : "Next"}
+                    </span>
+                  </div>
+                  <h3 className="mb-2 text-base font-semibold tracking-[-0.01em]">{l.title}</h3>
+                  <p className="mb-4 text-sm leading-relaxed text-text-dim">{l.body}</p>
+                  <p className="font-mono text-[12.5px] text-text-dim">
+                    {l.status === "shipped" && <span className="text-accent">$ </span>}
+                    {l.proof}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section id="how-it-works" className="border-b border-border py-16 sm:py-22 lg:py-22">
+          <div className={shell}>
+            <div className="mb-12 max-w-[640px]">
+              <h2 className={sectionHeading}>How z3rno actually works</h2>
+              <p className={sectionLede}>
+                Four decisions we&rsquo;re not walking back, each with the
+                mechanism that makes it true today, not a claim to take on
+                faith.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-xl border border-border">
+              {PILLARS.map((p, i) => (
+                <div
+                  className={`pillar-row grid grid-cols-1 gap-2.5 px-6.5 py-7 md:grid-cols-[200px_1fr] md:gap-8 ${
+                    i > 0 ? "border-t border-border" : ""
+                  }`}
+                  key={p.index}
+                >
+                  <h3 className="text-base font-semibold tracking-[-0.01em]">{p.title}</h3>
+                  <div>
+                    <p className="mb-3 max-w-[62ch] text-sm leading-relaxed text-text-dim">
+                      {p.body}
+                    </p>
+                    <p className="pillar-proof font-mono text-[12.5px]">{p.proof}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -197,8 +269,7 @@ export default function Home() {
         <section className="border-b border-border py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>Architecture</p>
-              <h2 className={sectionHeading}>What actually runs where</h2>
+              <h2 className={sectionHeading}>The architecture: what runs where</h2>
               <p className={sectionLede}>
                 One core, called directly by default — a server only enters
                 the picture once you ask for it.
@@ -229,7 +300,6 @@ export default function Home() {
         <section className="border-b border-border py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>Roadmap</p>
               <h2 className={sectionHeading}>Where this goes from here</h2>
             </div>
 
@@ -255,7 +325,6 @@ export default function Home() {
         <section id="status" className="border-b border-border bg-bg-subtle py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>Status</p>
               <h2 className={sectionHeading}>This is genuinely early</h2>
             </div>
 
@@ -296,8 +365,7 @@ export default function Home() {
         <section className="py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
-              <p className={eyebrow}>Install</p>
-              <h2 className={sectionHeading}>Coming soon</h2>
+              <h2 className={sectionHeading}>Installing z3rno — coming soon</h2>
               <p className={sectionLede}>
                 Nothing is published yet. This is the target surface across
                 all three ecosystems.
