@@ -41,7 +41,7 @@ const ROADMAP = [
   {
     phase: "Now",
     title: "Embedded core",
-    body: "Cargo workspace, embedded storage, and the Python/TypeScript binding scaffolds — the foundation everything else builds on.",
+    body: "A working embedded engine — real store, recall, forget, and audit against SQLite, an embedded vector index, and an embedded graph — plus the Python/TypeScript binding scaffolds it all builds on.",
     active: true,
   },
   {
@@ -316,12 +316,14 @@ export default function Home() {
               </span>
               <div className="space-y-2.5 text-[15px] text-text-dim [&_strong]:text-text">
                 <p>
-                  The monorepo just landed its{" "}
+                  The core engine now has a{" "}
                   <strong>
-                    Cargo workspace skeleton and binding scaffolds
-                  </strong>
-                  . Nothing is installable yet — no packages are published on
-                  any registry.
+                    working embedded backend
+                  </strong>{" "}
+                  — store, recall, forget, and a hash-chained audit log, all
+                  running against SQLite and in-process vector/graph
+                  indexes. Nothing is installable yet — no packages are
+                  published on any registry.
                 </p>
                 <p className="max-w-[62ch]">
                   z3rno is a from-scratch rewrite of an earlier, more complex
