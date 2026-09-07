@@ -358,9 +358,11 @@ a {
 .terminalBody {
   padding: 22px 20px 24px;
   font-family: var(--font-mono);
-  font-size: 13.5px;
-  line-height: 1.75;
-  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .terminalBody .prompt {
