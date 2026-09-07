@@ -39,6 +39,63 @@ const PILLARS = [
 
 const TIERS = ["Working", "Episodic", "Semantic", "Procedural"];
 
+// Real, verified call shapes from each binding's own shipped source
+// (engine/src/engine.rs, bindings/python/src/lib.rs,
+// bindings/typescript/src/lib.rs) — re-check against those files before
+// editing, never restyle from memory.
+const LANGS = [
+  {
+    lang: "Rust",
+    file: "engine",
+    code: `let engine =
+    MemoryEngine::embedded(
+        "z3rno.db",
+    )?;
+
+engine
+    .store(
+        "tenant-1",
+        Tier::Episodic,
+        content,
+        embedding,
+        metadata,
+        links,
+    )
+    .await?;`,
+  },
+  {
+    lang: "Python",
+    file: "z3rno",
+    code: `client = z3rno.Client()
+
+client.store(
+    tenant_id=
+        "tenant-1",
+    tier="episodic",
+    content=content,
+    embedding=
+        embedding,
+    metadata=metadata,
+    links=links,
+)`,
+  },
+  {
+    lang: "TypeScript",
+    file: "@z3rno/sdk",
+    code: `const client =
+    await Client.connect();
+
+await client.store({
+  tenantId: "tenant-1",
+  tier: "episodic",
+  content,
+  embedding,
+  metadata,
+  links,
+});`,
+  },
+];
+
 // Real, currently-true engineering facts — re-verify against `cargo test
 // --workspace` (+ bindings/python, bindings/typescript) before bumping.
 // No usage/adoption metrics belong here: z3rno is pre-launch with no
@@ -115,7 +172,7 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 pre&#8209;launch &middot; building in the open
               </span>
-              <h1 className="mb-6 text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.03] font-bold tracking-[-0.03em]">
+              <h1 className="mb-6 text-[clamp(3rem,7vw,5.75rem)] leading-[0.99] font-bold tracking-[-0.035em] text-balance">
                 Persistent memory for AI agents,{" "}
                 <em className="text-accent not-italic">compiled into your process</em>.
               </h1>
@@ -203,7 +260,7 @@ export default function Home() {
               </p>
             </div>
 
-            <ol className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border md:grid-cols-3 md:divide-x md:divide-y-0">
+            <ol className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-[28px] border border-border md:grid-cols-3 md:divide-x md:divide-y-0">
               {LADDER.map((l) => (
                 <li
                   key={l.step}
@@ -242,7 +299,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-border">
+            <div className="overflow-hidden rounded-[28px] border border-border">
               {PILLARS.map((p, i) => (
                 <div
                   className={`pillar-row grid grid-cols-1 gap-2.5 px-6.5 py-7 md:grid-cols-[200px_1fr] md:gap-8 ${
@@ -261,7 +318,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3.5 rounded-2xl border border-border px-6.5 py-5.5">
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3.5 rounded-[28px] border border-border px-6.5 py-5.5">
               <span className="font-mono text-xs tracking-[0.06em] text-text-dim uppercase">
                 Memory tiers
               </span>
@@ -272,6 +329,36 @@ export default function Home() {
                 >
                   {t}
                 </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-border py-16 sm:py-22 lg:py-22">
+          <div className={shell}>
+            <div className="mb-12 max-w-[640px]">
+              <h2 className={sectionHeading}>One engine, called three ways</h2>
+              <p className={sectionLede}>
+                Same verb, same signature, same tenant/tier/embedding
+                shape — a compiled call in every language, not a client
+                wrapping an API.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+              {LANGS.map((l) => (
+                <div
+                  key={l.lang}
+                  className="overflow-hidden rounded-[28px] border border-border bg-bg-subtle"
+                >
+                  <div className="flex items-center justify-between border-b border-border px-6 py-4">
+                    <span className="text-[14px] font-semibold text-text">{l.lang}</span>
+                    <span className="font-mono text-[12px] text-text-dim">{l.file}</span>
+                  </div>
+                  <pre className="overflow-x-auto px-6 py-6 font-mono text-[12.5px] leading-[1.75] text-text-dim">
+                    {l.code}
+                  </pre>
+                </div>
               ))}
             </div>
           </div>
@@ -314,7 +401,7 @@ export default function Home() {
               <h2 className={sectionHeading}>Where this goes from here</h2>
             </div>
 
-            <div className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            <div className="grid grid-cols-1 divide-y divide-border overflow-hidden rounded-[28px] border border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
               {ROADMAP.map((r) => (
                 <div
                   key={r.phase}
@@ -339,7 +426,7 @@ export default function Home() {
               <h2 className={sectionHeading}>This is genuinely early</h2>
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-7 rounded-2xl border border-border bg-bg p-8 sm:p-10 md:grid-cols-[auto_1fr_auto] md:text-left">
+            <div className="grid grid-cols-1 items-center gap-7 rounded-[28px] border border-border bg-bg p-8 sm:p-10 md:grid-cols-[auto_1fr_auto] md:text-left">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-3.5 py-1.5 font-mono text-xs tracking-[0.05em] text-warning uppercase whitespace-nowrap">
                 <span className="h-1.5 w-1.5 rounded-full bg-warning" />
                 pre&#8209;launch
@@ -386,7 +473,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {INSTALLS.map((i) => (
                 <div
-                  className="overflow-hidden rounded-xl border border-border bg-bg-subtle"
+                  className="overflow-hidden rounded-2xl border border-border bg-bg-subtle"
                   key={i.label}
                 >
                   <div className="flex items-center justify-between border-b border-border px-4 py-3.5">
@@ -432,7 +519,7 @@ function DiagramNode({
 }) {
   return (
     <div
-      className={`min-w-[168px] rounded-xl border border-border bg-bg-subtle px-5.5 py-4 text-center ${
+      className={`min-w-[168px] rounded-2xl border border-border bg-bg-subtle px-5.5 py-4 text-center ${
         core ? "diagram-node-core" : ""
       }`}
     >
@@ -444,7 +531,7 @@ function DiagramNode({
 
 function Terminal() {
   return (
-    <div className="terminal-card relative z-10 overflow-hidden rounded-2xl border border-border bg-bg-subtle">
+    <div className="terminal-card relative z-10 overflow-hidden rounded-[28px] border border-border bg-bg-subtle">
       <div className="flex items-center gap-2 border-b border-border px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--error)" }} />
         <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--warning)" }} />
