@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { GithubMark } from "@/components/GithubMark";
 import { BASE_PATH, GITHUB_URL } from "@/lib/site";
+import { eyebrow, sectionHeading, sectionLede, shell, ghostBtn } from "@/lib/styles";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -58,64 +62,10 @@ const ROADMAP = [
   },
 ];
 
-const eyebrow = "mb-3.5 font-mono text-xs tracking-[0.08em] uppercase text-accent";
-const sectionHeading =
-  "mb-3.5 text-[clamp(1.6rem,2.6vw,2.1rem)] font-semibold tracking-[-0.015em]";
-const sectionLede = "text-text-dim text-base";
-const shell = "mx-auto max-w-[1120px] px-6";
-const ghostBtn =
-  "inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-text no-underline transition hover:-translate-y-px hover:border-border-strong";
-
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-20 border-b border-border bg-bg/88 backdrop-blur-md">
-        <div className={`${shell} flex h-16 items-center justify-between`}>
-          <a href="#top" className="flex items-center gap-2.5 no-underline">
-            <Image
-              className="h-[26px] w-[26px] rounded-md"
-              src={`${BASE_PATH}/brand/z3rno-icon-dark.svg`}
-              width={120}
-              height={120}
-              alt=""
-            />
-            <Image
-              className="theme-dark h-[18px] w-auto"
-              src={`${BASE_PATH}/brand/z3rno-wordmark-transparent-dark.svg`}
-              width={400}
-              height={100}
-              alt="z3rno"
-            />
-            <Image
-              className="theme-light h-[18px] w-auto"
-              src={`${BASE_PATH}/brand/z3rno-wordmark-transparent-light.svg`}
-              width={400}
-              height={100}
-              alt="z3rno"
-            />
-          </a>
-          <nav className="flex items-center gap-7 text-sm text-text-dim">
-            <a className="no-underline transition-colors hover:text-text" href="#how-it-works">
-              How it works
-            </a>
-            <a
-              className="hidden no-underline transition-colors hover:text-text sm:inline"
-              href="#status"
-            >
-              Status
-            </a>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 font-medium text-text no-underline transition hover:border-border-strong"
-            >
-              <GithubMark />
-              GitHub
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader homeAnchors />
 
       <main id="top">
         <section className="hero-glow relative overflow-hidden border-b border-border px-0 py-16 sm:py-24 lg:py-[136px] lg:pb-[104px]">
@@ -377,47 +327,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="py-12">
-        <div className={`${shell} flex flex-wrap items-center justify-between gap-5`}>
-          <div className="flex items-center gap-2.5">
-            <Image
-              className="theme-dark h-[15px] w-auto opacity-85"
-              src={`${BASE_PATH}/brand/z3rno-wordmark-transparent-dark.svg`}
-              width={400}
-              height={100}
-              alt="z3rno"
-            />
-            <Image
-              className="theme-light h-[15px] w-auto opacity-85"
-              src={`${BASE_PATH}/brand/z3rno-wordmark-transparent-light.svg`}
-              width={400}
-              height={100}
-              alt="z3rno"
-            />
-          </div>
-          <div className="flex gap-6 text-[13.5px] text-text-dim">
-            <a
-              className="no-underline hover:text-text"
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a
-              className="no-underline hover:text-text"
-              href={`${GITHUB_URL}-website/blob/main/LICENSE`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              License
-            </a>
-          </div>
-          <p className="text-[13px] text-text-dim">
-            Apache-2.0 licensed. Built in the open.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
@@ -501,13 +411,5 @@ function Terminal() {
         </code>
       </pre>
     </div>
-  );
-}
-
-function GithubMark() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-      <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.6 2.29 6.65 5.47 7.72.4.08.55-.17.55-.39 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.22 1.87.88 2.33.67.07-.53.28-.88.51-1.08-1.78-.2-3.64-.91-3.64-4.02 0-.89.31-1.61.82-2.18-.08-.2-.36-1.03.08-2.15 0 0 .67-.22 2.2.83a7.4 7.4 0 0 1 4 0c1.53-1.05 2.2-.83 2.2-.83.44 1.12.16 1.95.08 2.15.51.57.82 1.28.82 2.18 0 3.12-1.87 3.82-3.65 4.02.29.26.54.75.54 1.53 0 1.11-.01 2-.01 2.27 0 .22.15.48.55.39A8.14 8.14 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z" />
-    </svg>
   );
 }
