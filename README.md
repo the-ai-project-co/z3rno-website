@@ -24,6 +24,7 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - **Slice 0001 — Website launch.** Landing page, brand assets wired in, GitHub Pages deploy pipeline.
 - Design pass (hero, architecture diagram, roadmap sections), a terminal-overflow fix, and a Tailwind CSS v4 migration.
 - **Slice 0002 follow-up.** Architecture/pillar/roadmap copy updated to name the actual production backend decided in that slice (Postgres + pgvector + Apache AGE).
+- **Slice 0003 follow-up.** Roadmap and status copy updated to reflect the working embedded engine (store/recall/forget/audit) that slice shipped, replacing "Cargo workspace skeleton and binding scaffolds."
 
 ## Local development
 
