@@ -9,16 +9,21 @@ import { shell } from "@/lib/styles";
 
 /** Shared top nav. `homeAnchors` — set on the landing page only, where
  * `#how-it-works`/`#status` are real in-page sections; other pages link
- * back to those sections on `/` instead. */
+ * back to those sections on `/` instead.
+ *
+ * Nav treatment: a bordered pill capsule of `$`-prefixed command-style
+ * labels, a blinking caret, and an icon-only GitHub button — picked from
+ * a 35-variant comparison (row "pill capsule", column "$ / icon circle /
+ * line divider / caret"). */
 export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
   const [open, setOpen] = useState(false);
   const howItWorksHref = homeAnchors ? "#how-it-works" : `${BASE_PATH}/#how-it-works`;
   const statusHref = homeAnchors ? "#status" : `${BASE_PATH}/#status`;
 
   const links = [
-    { label: "How it works", href: howItWorksHref, kind: "a" as const },
-    { label: "Progress", href: "/progress", kind: "link" as const },
-    { label: "Status", href: statusHref, kind: "a" as const },
+    { label: "How it works", slug: "how-it-works", href: howItWorksHref, kind: "a" as const },
+    { label: "Progress", slug: "progress", href: "/progress", kind: "link" as const },
+    { label: "Status", slug: "status", href: statusHref, kind: "a" as const },
   ];
 
   // Escape closes the mobile panel from anywhere, not just the toggle.
@@ -49,28 +54,32 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 text-[13.5px] font-medium tracking-[-0.005em] text-text-dim md:flex">
-          {links.map((l) =>
-            l.kind === "link" ? (
-              <Link key={l.label} className="nav-link no-underline transition-colors hover:text-text" href={l.href}>
-                {l.label}
-              </Link>
-            ) : (
-              <a key={l.label} className="nav-link no-underline transition-colors hover:text-text" href={l.href}>
-                {l.label}
-              </a>
-            ),
-          )}
+        <div className="hidden items-center gap-3.5 md:flex">
+          <nav className="header-pill flex items-center gap-px rounded-full border border-border p-[3px] font-mono text-[13px] text-text-dim">
+            {links.map((l) =>
+              l.kind === "link" ? (
+                <Link key={l.slug} className="rounded-full px-3 py-1.5 no-underline transition-colors hover:bg-bg-subtle hover:text-text" href={l.href}>
+                  <span className="text-accent">$</span> {l.slug}
+                </Link>
+              ) : (
+                <a key={l.slug} className="rounded-full px-3 py-1.5 no-underline transition-colors hover:bg-bg-subtle hover:text-text" href={l.href}>
+                  <span className="text-accent">$</span> {l.slug}
+                </a>
+              ),
+            )}
+          </nav>
+          <span className="header-caret" aria-hidden="true" />
+          <div className="h-5 w-px bg-border" />
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 font-medium text-text no-underline transition hover:border-border-strong"
+            aria-label="z3rno on GitHub"
+            className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-border text-text transition hover:border-border-strong hover:bg-bg-subtle"
           >
             <GithubMark />
-            GitHub
           </a>
-        </nav>
+        </div>
 
         <button
           type="button"
@@ -92,25 +101,25 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
 
       {open && (
         <div id="mobile-nav" className="mobile-nav-panel border-t border-border md:hidden">
-          <nav className={`${shell} flex flex-col py-2`}>
+          <nav className={`${shell} flex flex-col py-2 font-mono`}>
             {links.map((l) =>
               l.kind === "link" ? (
                 <Link
-                  key={l.label}
-                  className="border-b border-border py-3.5 text-[15px] font-medium text-text no-underline last:border-b-0"
+                  key={l.slug}
+                  className="border-b border-border py-3.5 text-[14px] font-medium text-text no-underline last:border-b-0"
                   href={l.href}
                   onClick={() => setOpen(false)}
                 >
-                  {l.label}
+                  <span className="text-accent">$</span> {l.slug}
                 </Link>
               ) : (
                 <a
-                  key={l.label}
-                  className="border-b border-border py-3.5 text-[15px] font-medium text-text no-underline last:border-b-0"
+                  key={l.slug}
+                  className="border-b border-border py-3.5 text-[14px] font-medium text-text no-underline last:border-b-0"
                   href={l.href}
                   onClick={() => setOpen(false)}
                 >
-                  {l.label}
+                  <span className="text-accent">$</span> {l.slug}
                 </a>
               ),
             )}
@@ -118,7 +127,7 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 py-3.5 text-[15px] font-medium text-text no-underline"
+              className="flex items-center gap-2 py-3.5 text-[14px] font-medium text-text no-underline"
             >
               <GithubMark />
               GitHub
