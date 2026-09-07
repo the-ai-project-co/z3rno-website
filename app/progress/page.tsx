@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { GithubMark } from "@/components/GithubMark";
 import { PROGRESS_ENTRIES } from "@/lib/progress";
-import { eyebrow, sectionLede, shell } from "@/lib/styles";
+import { sectionLede, shell } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Progress — z3rno",
@@ -19,9 +19,8 @@ export default function Progress() {
         <section className="border-b border-border py-16 sm:py-22 lg:py-[88px]">
           <div className={shell}>
             <div className="max-w-[640px]">
-              <p className={eyebrow}>Progress</p>
               <h1 className="mb-3.5 text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-[-0.02em]">
-                What&rsquo;s actually shipped
+                Progress: what&rsquo;s actually shipped
               </h1>
               <p className={`${sectionLede} max-w-[58ch]`}>
                 Every entry below is one slice, in the order it shipped — the
