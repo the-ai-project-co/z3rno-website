@@ -33,6 +33,7 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - **Header nav treatment.** Explored 35 systematic variants (a 7×5 matrix) in a comparison artifact and shipped the one picked: a bordered pill capsule of `$`-prefixed command-style labels, a blinking terminal caret, and an icon-only GitHub button.
 - **Hero tagline.** Replaced "The memory engine your agents run inside, not around." with "Persistent memory for AI agents, compiled into your process." — the old line relied on wordplay instead of stating the mechanism.
 - **Slice 0005 entry.** `/progress` updated for the `z3rno-server` crate: routes, auth, cross-tenant budget admin, and observability, including the closed health-check gap.
+- **Slice 0006 entry.** `/progress` updated for the real Python (PyO3) and TypeScript (napi-rs) bindings over `z3rno-engine`, the sync/async split resolved per language, and the multi-platform release pipeline.
 
 ## Local development
 
