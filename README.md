@@ -36,6 +36,7 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - **Slice 0006 entry.** `/progress` updated for the real Python (PyO3) and TypeScript (napi-rs) bindings over `z3rno-engine`, the sync/async split resolved per language, and the multi-platform release pipeline.
 - **Bolder structural pass.** Shell widened 1120px → 1320px, hero H1 grew to a 5.75rem clamp ceiling, major panel radius doubled (16px → 28px), and a new "One engine, called three ways" section shows a real, verified `store()` call side by side in Rust/Python/TypeScript — all spatial/structural, brand colors and logo untouched.
 - **Slice 0007 entry.** `/progress` updated for the real `z3rno-cli` binary (init/serve/store/recall/forget) and four real distribution pipelines (crates.io, npm, GHCR, supply-chain provenance) — no publish credentials configured yet.
+- **Slice 0008 entry.** `/progress` updated for the Python MCP server (`FastMCP` over stdio, four tools over a real `z3rno` client) and the three independent eval harnesses (Rust, Python, TypeScript) scoring recall@k/MRR/faithfulness/latency against one shared golden dataset.
 
 ## Local development
 

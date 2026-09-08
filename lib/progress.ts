@@ -20,6 +20,23 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0008",
+    title: "MCP server + evals harness",
+    date: "2026-09-08",
+    summary:
+      "A Python MCP server (mcp/, official mcp SDK's FastMCP over stdio) exposing store/recall/forget/audit as tools, calling into the same published z3rno bindings package like any other consumer — no special access. Alongside it, three independent eval harnesses (Rust, Python, TypeScript) score recall@k, MRR, faithfulness, and latency against a shared golden dataset (evals/fixtures/golden_v1.json) through each language's real client, using one canonical naive local hashing embedding (hash-embed/) reused directly by Rust and ported byte-for-byte to Python and TypeScript so results are comparable across languages.",
+    decisions: [
+      "Each harness measured its own baseline against this exact pipeline and set regression thresholds with headroom below it, rather than sharing one number across languages — the embedded backend's vector search is HNSW-based approximate nearest-neighbor, rebuilt per search from a HashMap's randomized iteration order, so exact scores vary slightly run-to-run even with fully deterministic embeddings (measured directly across 20 runs of the Python harness).",
+      "The mcp PyPI package jumped from 1.x to 2.2.0 with a breaking rename (FastMCP → MCPServer) partway through this slice — pinned to mcp>=1.0.0,<2.0.0 deliberately, so a bare mcp>=1.0.0 dependency doesn't silently break the server against the API this design was actually written against.",
+      "The old z3rno-mcp package was chronically one feature-slice behind the SDKs because it was built in parallel with them. Building it directly against the already-finished bindings this time removes the structural reason that lag existed.",
+      "Both new CI workflows (ci-mcp.yml, ci-evals-python.yml) initially failed on GitHub Actions: maturin develop (unlike maturin build) requires an active virtualenv, which bare runners don't have by default. Fixed by adding an explicit venv-creation step before the maturin develop call in both.",
+    ],
+    links: [
+      { label: "z3rno #25", href: `${Z}/pull/25` },
+      { label: "z3rno #24 (issue)", href: `${Z}/issues/24` },
+    ],
+  },
+  {
     tag: "0007",
     title: "CLI, crates.io, and release distribution",
     date: "2026-09-08",
