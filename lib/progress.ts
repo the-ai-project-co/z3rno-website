@@ -20,6 +20,25 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0009",
+    title: "Starter kit",
+    date: "2026-09-08",
+    summary:
+      "z3rno-starter-kit (starter-kit/), an installable package with five worked examples over z3rno's real bindings surface: chat memory, customer support, a SQL copilot, code memory, and a research notebook. Every example is built against store/recall/forget/advanced.audit() only, with recall taking a raw embedding vector and no server-side filtering — a much narrower surface than the pre-rewrite starter kit's HTTP client had, so every example was redesigned around it rather than mechanically ported.",
+    decisions: [
+      "The plan doc's premise that ingest/distill/refine 'become real binding methods this time' doesn't hold for this codebase — its citation (decision-doc 0003) is from the old pre-rewrite stack and was never carried forward. Verified directly against bindings/python/src/lib.rs before writing any example, rather than trusting the plan doc's claim.",
+      "customer_support replaces the old app-level user_id filter with one tenant per customer — real backend-enforced isolation instead of a predicate that has to be trusted to be applied correctly on every query.",
+      "code_memory and research_notebook replace automatic code-graph/LLM extraction (which doesn't exist in the new engine at all) with hand-described symbols/notes linked via store()'s links parameter. Those links write real graph edges but aren't queryable through the bindings yet — a real gap surfaced while writing this slice, filed as z3rno#29 — so both examples fall back to content-similarity recall.",
+      "research_notebook no longer needs OPENAI_API_KEY or server feature flags at all, unlike the old version — a genuine simplification matching z3rno's zero-required-infrastructure story, not a workaround.",
+      "Since every example runs against a local embedded SQLite store, the smoke tests actually call each example's main() end to end rather than only import-gating it, a stronger regression gate than the old starter kit could offer (it needed a live server CI couldn't assume was up).",
+    ],
+    links: [
+      { label: "z3rno #30", href: `${Z}/pull/30` },
+      { label: "z3rno #28 (issue)", href: `${Z}/issues/28` },
+      { label: "z3rno #29 (graph links gap)", href: `${Z}/issues/29` },
+    ],
+  },
+  {
     tag: "0008",
     title: "MCP server + evals harness",
     date: "2026-09-08",

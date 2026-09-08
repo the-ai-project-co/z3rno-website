@@ -141,20 +141,20 @@ const INSTALLS = [
 const ROADMAP = [
   {
     phase: "Now",
-    title: "Engine, server, bindings, CLI, MCP server, and eval harnesses",
-    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, real Python and TypeScript bindings, a standalone z3rno-cli binary, a Python MCP server exposing the same four verbs as tools, and three independent eval harnesses (Rust, Python, TypeScript) scoring recall@k/MRR/faithfulness/latency against one shared golden dataset. Real publish pipelines exist for crates.io, npm, and a multi-arch GHCR server image, with SBOMs and build provenance — but no publish credentials are configured yet, so nothing is live on a registry. Everything above runs from source today.",
+    title: "Engine, server, bindings, CLI, MCP server, eval harnesses, and a starter kit",
+    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, real Python and TypeScript bindings, a standalone z3rno-cli binary, a Python MCP server exposing the same four verbs as tools, three independent eval harnesses (Rust, Python, TypeScript) scoring recall@k/MRR/faithfulness/latency against one shared golden dataset, and an installable z3rno-starter-kit package with five worked examples over the real bindings. Real publish pipelines exist for crates.io, npm, and a multi-arch GHCR server image, with SBOMs and build provenance — but no publish credentials are configured yet, so nothing is live on a registry. Everything above runs from source today.",
     active: true,
   },
   {
     phase: "Next",
-    title: "Starter kit",
-    body: "A starter-kit/ package inside the monorepo, mirroring cognee-starter-kit's shape: five modernized example use cases (chat memory, customer-support tickets, SQL copilot, code-graph ingestion, research-notebook distill/refine) against the new bindings, its own installable package manifest, and lightweight smoke-test CI that fails fast on upstream binding breakage.",
+    title: "New website + docs site, and a graph visualizer",
+    body: "A new marketing + docs site replacing this one and the old Mintlify docs, covering install instructions for every publish channel, plus an in-monorepo frontend/ Next.js app — a graph/memory visualizer, the direct successor to the old product's /graph page, shipped as part of the product itself this time instead of bolted onto the marketing site.",
     active: false,
   },
   {
     phase: "Then",
     title: "v1.0 launch",
-    body: "A simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, eval harnesses, and starter kit alongside it, and the new site live to receive it.",
+    body: "A simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, eval harnesses, and starter kit alongside it, and the new site and graph visualizer live to receive it.",
     active: false,
   },
 ];
