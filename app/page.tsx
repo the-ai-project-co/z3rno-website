@@ -141,20 +141,20 @@ const INSTALLS = [
 const ROADMAP = [
   {
     phase: "Now",
-    title: "Engine, server, bindings, and a real CLI",
-    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, real Python and TypeScript bindings, and a standalone z3rno-cli binary. Real publish pipelines exist for crates.io, npm, and a multi-arch GHCR server image, with SBOMs and build provenance — but no publish credentials are configured yet, so nothing is live on a registry. Everything above runs from source today.",
+    title: "Engine, server, bindings, CLI, MCP server, and eval harnesses",
+    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, real Python and TypeScript bindings, a standalone z3rno-cli binary, a Python MCP server exposing the same four verbs as tools, and three independent eval harnesses (Rust, Python, TypeScript) scoring recall@k/MRR/faithfulness/latency against one shared golden dataset. Real publish pipelines exist for crates.io, npm, and a multi-arch GHCR server image, with SBOMs and build provenance — but no publish credentials are configured yet, so nothing is live on a registry. Everything above runs from source today.",
     active: true,
   },
   {
     phase: "Next",
-    title: "MCP server and a three-language eval harness",
-    body: "A Python MCP server built as a thin wrapper over the same published bindings package — no special access, proving the public API is sufficient on its own — plus recall@k/MRR/faithfulness/latency eval suites in Python, TypeScript, and Rust, sharing one golden-dataset format so results are comparable across languages.",
+    title: "Starter kit",
+    body: "A starter-kit/ package inside the monorepo, mirroring cognee-starter-kit's shape: five modernized example use cases (chat memory, customer-support tickets, SQL copilot, code-graph ingestion, research-notebook distill/refine) against the new bindings, its own installable package manifest, and lightweight smoke-test CI that fails fast on upstream binding breakage.",
     active: false,
   },
   {
     phase: "Then",
     title: "v1.0 launch",
-    body: "A simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, and eval harness alongside it, and the new site live to receive it.",
+    body: "A simultaneous release across PyPI, npm, and crates.io, with the CLI, MCP server, eval harnesses, and starter kit alongside it, and the new site live to receive it.",
     active: false,
   },
 ];
