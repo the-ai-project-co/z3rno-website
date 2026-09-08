@@ -38,6 +38,7 @@ Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, ro
 - **Slice 0007 entry.** `/progress` updated for the real `z3rno-cli` binary (init/serve/store/recall/forget) and four real distribution pipelines (crates.io, npm, GHCR, supply-chain provenance) — no publish credentials configured yet.
 - **Slice 0008 entry.** `/progress` updated for the Python MCP server (`FastMCP` over stdio, four tools over a real `z3rno` client) and the three independent eval harnesses (Rust, Python, TypeScript) scoring recall@k/MRR/faithfulness/latency against one shared golden dataset.
 - **Slice 0009 entry.** `/progress` updated for `z3rno-starter-kit`, five worked examples over the real bindings surface, redesigned around what the new engine actually offers rather than mechanically ported from the pre-rewrite version.
+- **Slice 0010 — Docs site.** A `/docs` section (landing + install/sdk/cli/mcp/architecture sub-pages) added to this same site, structurally informed by cognee.ai's docs-hub layout (pattern only, never its branding) — one hero "Get Started" card, four category cards, and a genuinely new `/docs/architecture` page (a real store/recall/forget/audit data-flow table, read from `engine/src/engine.rs`) kept distinct from the landing page's existing deployment-topology diagram. Landing page install section gained its missing GHCR/Docker card and a link out to the full docs; a small z3rno Cloud teaser replaces no functionality (no signup form — this is a static export with no backend).
 
 ## Local development
 
