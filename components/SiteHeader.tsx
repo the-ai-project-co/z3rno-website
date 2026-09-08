@@ -22,6 +22,7 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
 
   const links = [
     { label: "How it works", slug: "how-it-works", href: howItWorksHref, kind: "a" as const },
+    { label: "Docs", slug: "docs", href: "/docs", kind: "link" as const },
     { label: "Progress", slug: "progress", href: "/progress", kind: "link" as const },
     { label: "Status", slug: "status", href: statusHref, kind: "a" as const },
   ];
