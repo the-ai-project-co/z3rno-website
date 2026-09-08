@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { GithubMark } from "@/components/GithubMark";
@@ -136,6 +137,7 @@ const INSTALLS = [
   { label: "Python", cmd: "pip install z3rno" },
   { label: "TypeScript", cmd: "npm install @z3rno/sdk" },
   { label: "Rust", cmd: "cargo add z3rno-engine" },
+  { label: "Server (GHCR)", cmd: "docker pull ghcr.io/the-ai-project-co/z3rno-server" },
 ];
 
 const ROADMAP = [
@@ -460,17 +462,21 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-16 sm:py-22 lg:py-22">
+        <section id="install" className="border-b border-border py-16 sm:py-22 lg:py-22">
           <div className={shell}>
             <div className="mb-12 max-w-[640px]">
               <h2 className={sectionHeading}>Installing z3rno — coming soon</h2>
               <p className={sectionLede}>
                 Nothing is published yet. This is the target surface across
-                all three ecosystems.
+                every channel —{" "}
+                <Link href="/docs/install" className="text-text underline">
+                  full install docs
+                </Link>
+                .
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
               {INSTALLS.map((i) => (
                 <div
                   className="overflow-hidden rounded-2xl border border-border bg-bg-subtle"
@@ -487,6 +493,33 @@ export default function Home() {
                   </pre>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 sm:py-22 lg:py-22">
+          <div className={shell}>
+            <div className="flex flex-col items-start gap-5 rounded-[28px] border border-border bg-bg-subtle p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+              <div className="max-w-[52ch]">
+                <h2 className="mb-2 text-lg font-semibold tracking-[-0.01em] text-text">
+                  z3rno Cloud, planned
+                </h2>
+                <p className="text-[14px] leading-relaxed text-text-dim">
+                  A managed, hosted version of the production backend is the
+                  intended path to sustaining this as an open-source project
+                  — not built yet, and not the only way to run z3rno.
+                  Embedding it directly or running your own server stays
+                  fully supported either way.
+                </p>
+              </div>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={ghostBtn + " w-fit shrink-0"}
+              >
+                Follow along on GitHub ↗
+              </a>
             </div>
           </div>
         </section>
