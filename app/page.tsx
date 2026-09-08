@@ -141,14 +141,14 @@ const INSTALLS = [
 const ROADMAP = [
   {
     phase: "Now",
-    title: "Engine, server, and real bindings",
-    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, and real, tested Python and TypeScript bindings compiled directly against the Rust core. Nothing published to a registry yet — everything above runs from source today.",
+    title: "Engine, server, bindings, and a real CLI",
+    body: "A working engine — store, recall, forget, and audit — against two backends behind the same trait interface (embedded SQLite by default, Postgres + pgvector + Apache AGE for production), an Axum HTTP server for multi-tenant deployments, real Python and TypeScript bindings, and a standalone z3rno-cli binary. Real publish pipelines exist for crates.io, npm, and a multi-arch GHCR server image, with SBOMs and build provenance — but no publish credentials are configured yet, so nothing is live on a registry. Everything above runs from source today.",
     active: true,
   },
   {
     phase: "Next",
-    title: "CLI, crates.io, and release distribution",
-    body: "The z3rno-cli binary, a GHCR server image, and the multi-platform build/publish pipelines that make every package above actually installable — the last mile between working code and a package manager.",
+    title: "MCP server and a three-language eval harness",
+    body: "A Python MCP server built as a thin wrapper over the same published bindings package — no special access, proving the public API is sufficient on its own — plus recall@k/MRR/faithfulness/latency eval suites in Python, TypeScript, and Rust, sharing one golden-dataset format so results are comparable across languages.",
     active: false,
   },
   {

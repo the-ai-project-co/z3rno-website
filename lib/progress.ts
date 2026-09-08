@@ -20,6 +20,26 @@ const ZW = "https://github.com/the-ai-project-co/z3rno-website";
 
 export const PROGRESS_ENTRIES: ProgressEntry[] = [
   {
+    tag: "0007",
+    title: "CLI, crates.io, and release distribution",
+    date: "2026-09-08",
+    summary:
+      "A real z3rno-cli binary (init/serve/store/recall/forget) usable standalone against a local embedded store — store/recall fall back to a naive local hashing embedding (feature-hashing, clearly documented as a placeholder, not a semantic model) so the CLI works with zero external services out of the box. Four real distribution pipelines built: crates.io (z3rno-engine/z3rno-server/z3rno-cli, dependency-ordered, per-crate SBOMs), npm (npx z3rno via a thin wrapper + per-platform optionalDependencies), a multi-arch GHCR server image (122MB, SLSA build provenance + SBOM), and --provenance on every new npm publish step. No publish credentials configured yet — this is pipeline-readiness work, same as slice 0006.",
+    decisions: [
+      "The naive local hashing embedding (128-dim feature-hashing / bag-of-words, L2-normalized) is a deliberate zero-dependency default for store/recall, not a shortcut nobody was told about — the CLI's own README states plainly that it has no notion of synonyms or meaning, and that real usage should supply real embeddings via --embedding or the SDKs.",
+      "z3rno serve generates a random per-run JWT secret when --jwt-secret is omitted, printing a loud warning that sessions won't survive a restart — a local/dev convenience the standalone z3rno-server binary deliberately does not offer, since it still refuses to start without one explicitly.",
+      "Building store/recall surfaced that the embedded vector backend never persists to SQLite — only the memory record does — so recall silently returns nothing across separate CLI process invocations. Filed as z3rno#21, the same class of gap as the already-tracked embedded graph backend (z3rno#8, whose own text incorrectly claimed the vector backend already persisted — corrected there too). Documented as a known limitation rather than silently shipped.",
+      "While making z3rno-server crates.io-publishable for the first time, found and removed several leftover doc-comment references to the private reference codebase's own name, left over unnoticed since slice 0005 — a real violation of this project's standing never-mention rule for shipped product surfaces.",
+      "A completeness check against the reference codebase's own CLI (which treats forget as a first-class verb) surfaced that the CLI shipped store/recall but not forget, despite forget being one of z3rno-engine's three headline verbs and already implemented and tested — added in a same-day follow-up (z3rno#23).",
+    ],
+    links: [
+      { label: "z3rno #22", href: `${Z}/pull/22` },
+      { label: "z3rno #20 (issue)", href: `${Z}/issues/20` },
+      { label: "z3rno #23 (forget follow-up)", href: `${Z}/pull/23` },
+      { label: "z3rno #21 (vector persistence gap)", href: `${Z}/issues/21` },
+    ],
+  },
+  {
     tag: "0006",
     title: "Language bindings (Python + TypeScript)",
     date: "2026-09-07",
