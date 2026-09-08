@@ -31,7 +31,10 @@ export const PROGRESS_ENTRIES: ProgressEntry[] = [
       "/docs/architecture is genuinely new content, not consolidated from an existing doc: a real store/recall/forget/audit × relational/vector/graph data-flow table, read directly from engine/src/engine.rs rather than assumed. It's deliberately distinct from the landing page's existing 'what runs where' deployment-topology diagram — marketing stays at that level, docs goes one level deeper, matching the same docs-vs-marketing split cognee's own site keeps.",
       "Tiers (working/episodic/semantic/procedural) turned out to be a label stored on the memory record, not a routing dimension — all four move through the same three backends. Worth stating explicitly on the architecture page since it's easy to assume otherwise.",
     ],
-    links: [{ label: "z3rno-website #43 (issue)", href: `${ZW}/issues/43` }],
+    links: [
+      { label: "z3rno-website #44", href: `${ZW}/pull/44` },
+      { label: "z3rno-website #43 (issue)", href: `${ZW}/issues/43` },
+    ],
   },
   {
     tag: "0009",
