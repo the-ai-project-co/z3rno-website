@@ -55,7 +55,7 @@ components:
 
 **Creative North Star: "The Systems Terminal"**
 
-z3rno's site reads as a working developer tool rendered as a webpage, not a marketing surface with code sprinkled on top. Dark is the resting state (light activates only when the OS explicitly prefers it, never a manual toggle) — a near-black ground, a single teal accent used sparingly, and JetBrains Mono standing in for anything that's real (commands, proof lines, data). Structure carries the persuasion: proof-line lists instead of icon cards, a real verified call shown in three languages side by side, an honest "this is genuinely early" section instead of manufactured urgency. Craft lessons were studied from cognee.ai's structural patterns (never its palette, type, or branding — that boundary is load-bearing, not a style note) and adapted at a more restrained absolute scale (16–28px panel radii rather than cognee's 40px, a 1320px shell rather than 1340px) to keep a systems-product tone rather than importing a marketing site's proportions literally.
+z3rno's site reads as a working developer tool rendered as a webpage, not a marketing surface with code sprinkled on top. Dark is the resting state (light activates only when the OS explicitly prefers it, never a manual toggle) — a near-black ground, a single teal accent used sparingly, and JetBrains Mono standing in for anything that's real (commands, proof lines, data). Structure carries the persuasion: proof-line lists instead of icon cards, a real verified call shown in three languages side by side, an honest "this is genuinely early" section instead of manufactured urgency. Craft lessons were studied from a comparable product's structural patterns (never its palette, type, or branding — that boundary is load-bearing, not a style note) and adapted at a more restrained absolute scale (16–28px panel radii rather than that reference's 40px, a 1320px shell rather than 1340px) to keep a systems-product tone rather than importing a marketing site's proportions literally.
 
 **Key Characteristics:**
 - Near-black ground, one teal accent, used at low frequency
@@ -116,7 +116,7 @@ Flat by default: almost everything is separated by a 1px border, not a shadow. T
 
 ## Shapes
 
-Three radius steps, chosen by role: `rounded-full` (pills) for every button and the nav capsule; `rounded-2xl` (~16px) for secondary content cards (install cards, docs category cards, code blocks); `rounded-[28px]` for major structural panels (the pillar list, the architecture diagram, the roadmap grid, the docs data-flow table). The 28px value is a deliberate divergence from cognee's 40px reference — bumped toward the terminal card's own radius, but kept smaller to hold a more restrained, systems-product tone rather than a marketing-site's softer proportions.
+Three radius steps, chosen by role: `rounded-full` (pills) for every button and the nav capsule; `rounded-2xl` (~16px) for secondary content cards (install cards, docs category cards, code blocks); `rounded-[28px]` for major structural panels (the pillar list, the architecture diagram, the roadmap grid, the docs data-flow table). The 28px value is a deliberate divergence from the 40px reference studied structurally — bumped toward the terminal card's own radius, but kept smaller to hold a more restrained, systems-product tone rather than a marketing-site's softer proportions.
 
 ## Components
 
@@ -150,5 +150,5 @@ A bordered `rounded-[28px]` grid table — operations as rows, the three storage
 ### Don't:
 - **Don't** place an eyebrow/kicker label directly above a heading, anywhere on the site.
 - **Don't** add a third shadow/glow moment beyond the hero terminal and the primary button.
-- **Don't** copy cognee.ai's literal colors, type, or exact spacing values (40px radii, 1340px shell) — pattern and structure only, per the standing brand-source-of-truth rule (`z3rno-brand-assets`).
+- **Don't** copy the studied reference's literal colors, type, or exact spacing values (40px radii, 1340px shell) — pattern and structure only, per the standing brand-source-of-truth rule (`z3rno-brand-assets`).
 - **Don't** invent install/publish-status copy — every "coming soon" or "not yet published" claim must match the actual current registry state.

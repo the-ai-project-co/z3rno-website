@@ -27,8 +27,8 @@ export const PROGRESS_ENTRIES: ProgressEntry[] = [
       "A /docs section on this same site (not a new repo) — a landing page (an architecture-diagram summary, a Get Started hero card, four category cards), plus /docs/install, /docs/sdk, /docs/cli, /docs/mcp, and a new /docs/architecture page. The landing page's install section gained the missing GHCR/Docker card and now links out to the full docs instead of holding everything inline, plus a small z3rno Cloud teaser (no non-functional signup form — this site has no backend to submit one to).",
     decisions: [
       "One combined marketing+docs site, reusing this repo rather than standing up a third one — it already serves this role and the slice's own plan doc recommends a combined site for a team this size.",
-      "The docs landing page's 1-hero + 4-category shape mirrors cognee.ai's docs-hub structure (studied for layout only, never its palette/type/branding), but every category maps to something z3rno actually has today — no thin categories padded out just to hit a count.",
-      "/docs/architecture is genuinely new content, not consolidated from an existing doc: a real store/recall/forget/audit × relational/vector/graph data-flow table, read directly from engine/src/engine.rs rather than assumed. It's deliberately distinct from the landing page's existing 'what runs where' deployment-topology diagram — marketing stays at that level, docs goes one level deeper, matching the same docs-vs-marketing split cognee's own site keeps.",
+      "The docs landing page's 1-hero + 4-category shape mirrors a well-established docs-hub structure (studied for layout only, never any specific site's palette, type, or branding), but every category maps to something z3rno actually has today — no thin categories padded out just to hit a count.",
+      "/docs/architecture is genuinely new content, not consolidated from an existing doc: a real store/recall/forget/audit × relational/vector/graph data-flow table, read directly from engine/src/engine.rs rather than assumed. It's deliberately distinct from the landing page's existing 'what runs where' deployment-topology diagram — marketing stays at that level, docs goes one level deeper, matching a docs-vs-marketing split many documentation sites keep.",
       "Tiers (working/episodic/semantic/procedural) turned out to be a label stored on the memory record, not a routing dimension — all four move through the same three backends. Worth stating explicitly on the architecture page since it's easy to assume otherwise.",
     ],
     links: [
@@ -169,7 +169,7 @@ export const PROGRESS_ENTRIES: ProgressEntry[] = [
     decisions: [
       "Neo4j+Qdrant ruled out on evidence: Neo4j Community can't run multiple databases (Enterprise-only), and a search that simply omitted the tenant filter on Qdrant returned another tenant's data.",
       "SurrealDB passed isolation as cleanly as Postgres RLS, but its license (Business Source License, converts to Apache-2.0 after a delay) left an open question Postgres didn't need answered.",
-      "cognee's own Rust rewrite doesn't actually use Neo4j or Qdrant at all — corrected before scoring, since “diversity like cognee” was this spike's original motivation.",
+      "A comparable open-source Rust memory-engine rewrite doesn't actually use Neo4j or Qdrant at all — corrected before scoring, since “backend diversity like that project” was this spike's original motivation.",
       "Decision: Postgres + pgvector + Apache AGE is what slice 0004 builds against.",
     ],
     links: [

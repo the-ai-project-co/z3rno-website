@@ -23,7 +23,7 @@ z3rno is an open-source memory engine for AI agents: persistent memory across se
 - **Embeddable by default, zero required infrastructure** — runs embedded (SQLite + embedded vector index + embedded graph store) out of the box, pluggable to a production backend (Postgres + pgvector + Apache AGE) when needed. A neighboring product that hard-wires to one production datastore from day one could not truthfully claim this.
 - **Native bindings, not a thin HTTP client** — Python (PyO3) and TypeScript (napi-rs) bindings compile the actual Rust engine; the SDK *is* the engine.
 - **Rust core, rewritten from a Python predecessor** for speed and a single monorepo instead of six separately-published repos.
-- Standing rule: never reference cognee/Cognee anywhere in the shipped product (site copy, code, commits) — this positioning is informed by cognee's design/architecture as prior art but must never name it.
+- Standing rule: never name any specific third-party product anywhere in this repository (site copy, code, commits, docs) — structural/craft research may inform this positioning as prior art, but the source is never named.
 
 ## Operating Context
 
@@ -41,7 +41,7 @@ z3rno is an open-source memory engine for AI agents: persistent memory across se
 ## Brand Commitments
 
 - All colors, themes, logos, and other brand assets come from the `z3rno-brand-assets` repo — the sole source of truth. Nothing brand-related is hardcoded or duplicated here.
-- Cognee.ai's live site was studied for structural/craft lessons only (see `_research_refs/cognee-website/`) — its palette, typography, and branding are explicitly off-limits as a source, and cognee itself is never named anywhere in the shipped product.
+- A comparable product's live site was studied for structural/craft lessons only — its palette, typography, and branding are explicitly off-limits as a source, and it is never named anywhere in this repository.
 - Scope for this redesign pass is confirmed as **extension**: preserve the current visual identity (z3rno's palette, mood, current accurate copy) and elevate craft/structure, not a ground-up visual replacement.
 
 ## Evidence on Hand
@@ -55,7 +55,7 @@ z3rno is an open-source memory engine for AI agents: persistent memory across se
 2. Build-in-public as a real feature, not a slogan: `/progress` exists because prior slices shipped real work invisibly; every future slice's website step must keep it substantive.
 3. Zero-infra-by-default, pluggable-when-needed is the core technical differentiator and should stay legible on the landing page, not buried under generic AI-agent marketing language.
 4. Speak to both a solo developer and an enterprise technical evaluator in the same copy — don't fork the site into two audience tracks yet.
-5. Borrow structural craft, never brand — cognee.ai informs layout/information-architecture thinking, never palette, typography, or naming.
+5. Borrow structural craft, never brand — outside research may inform layout/information-architecture thinking, never palette, typography, or naming.
 
 ## Accessibility & Inclusion
 
