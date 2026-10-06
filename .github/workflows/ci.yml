@@ -27,6 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check exported routes
+        run: npm run test:export
+
   lint:
     name: lint
     runs-on: ubuntu-latest

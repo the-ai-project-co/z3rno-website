@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { canonicalUrl } from "@/lib/site";
 import { DocsPageHeader } from "@/components/DocsPageHeader";
 import { DataFlowDiagram } from "@/components/DataFlowDiagram";
 import { shell } from "@/lib/styles";
@@ -9,15 +8,12 @@ export const metadata: Metadata = {
   title: "Architecture — z3rno docs",
   description:
     "The real store/recall/forget/audit data flow across z3rno's relational, vector, and graph backends.",
-  alternates: { canonical: "/docs/architecture" },
+  alternates: { canonical: canonicalUrl("/docs/architecture") },
 };
 
 export default function ArchitectureDocs() {
   return (
-    <>
-      <SiteHeader />
-
-      <main>
+    <main>
         <DocsPageHeader
           title="Architecture: the data flow"
           lede="Where the landing page's diagram shows what runs where (engine, bindings, server), this is one level deeper: what each of the four operations actually does to each of the three backends. Read directly from engine/src/engine.rs, not summarized."
@@ -99,9 +95,6 @@ export default function ArchitectureDocs() {
             </div>
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    </main>
   );
 }

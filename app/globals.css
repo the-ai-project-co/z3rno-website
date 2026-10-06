@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap");
 @import "tailwindcss";
 
 /* ---------- Tokens ---------- */
 /* Dark is the default brand identity. Light activates only when the OS
    explicitly prefers it — see the media query below. */
 :root {
+  --font-inter: Inter;
+  --font-jetbrains-mono: "JetBrains Mono";
   --bg: #0c0c0e;
   --bg-subtle: #1a1a1e;
   --bg-card: #27272a;

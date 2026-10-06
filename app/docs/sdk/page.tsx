@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { canonicalUrl } from "@/lib/site";
 import { DocsPageHeader } from "@/components/DocsPageHeader";
 import { CodeBlock } from "@/components/CodeBlock";
 import { shell } from "@/lib/styles";
@@ -8,7 +7,7 @@ import { shell } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "SDK / Bindings — z3rno docs",
   description: "Python and TypeScript Client usage, error semantics, and the Postgres backend opt-in.",
-  alternates: { canonical: "/docs/sdk" },
+  alternates: { canonical: canonicalUrl("/docs/sdk") },
 };
 
 const PYTHON_USAGE = `import z3rno
@@ -68,10 +67,7 @@ const TS_POSTGRES = `const client = await Client.connect({
 
 export default function SdkDocs() {
   return (
-    <>
-      <SiteHeader />
-
-      <main>
+    <main>
         <DocsPageHeader
           title="SDK / Bindings"
           lede="Python (PyO3) and TypeScript (napi-rs) — native compiled bindings over z3rno-engine, not thin HTTP clients. The SDK is the engine. Python is sync-only (one shared Tokio runtime under the hood); TypeScript is async-only (every I/O call returns a Promise)."
@@ -125,9 +121,6 @@ export default function SdkDocs() {
             </p>
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    </main>
   );
 }

@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { SiteFrame } from "@/components/SiteFrame";
 import { GithubMark } from "@/components/GithubMark";
 import { PROGRESS_ENTRIES } from "@/lib/progress";
+import { canonicalUrl } from "@/lib/site";
 import { sectionLede, shell } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Progress — z3rno",
-  alternates: { canonical: "/progress" },
+  alternates: { canonical: canonicalUrl("/progress") },
 };
 
 export default function Progress() {
   return (
-    <>
-      <SiteHeader />
-
+    <SiteFrame>
       <main>
         <section className="border-b border-border py-16 sm:py-22 lg:py-[88px]">
           <div className={shell}>
@@ -101,7 +99,6 @@ export default function Progress() {
         </section>
       </main>
 
-      <SiteFooter />
-    </>
+    </SiteFrame>
   );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { canonicalUrl } from "@/lib/site";
 import { DocsPageHeader } from "@/components/DocsPageHeader";
 import { CodeBlock } from "@/components/CodeBlock";
 import { shell } from "@/lib/styles";
@@ -8,7 +7,7 @@ import { shell } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "Install — z3rno docs",
   description: "Every z3rno publish channel: pip, npm, cargo, and the GHCR server image.",
-  alternates: { canonical: "/docs/install" },
+  alternates: { canonical: canonicalUrl("/docs/install") },
 };
 
 const CHANNELS = [
@@ -31,10 +30,7 @@ const CHANNELS = [
 
 export default function InstallDocs() {
   return (
-    <>
-      <SiteHeader />
-
-      <main>
+    <main>
         <DocsPageHeader
           title="Install"
           lede="Nothing here is published on any registry yet — no packages are live. These are the exact target commands for when the first release ships."
@@ -78,9 +74,6 @@ export default function InstallDocs() {
             </p>
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    </main>
   );
 }

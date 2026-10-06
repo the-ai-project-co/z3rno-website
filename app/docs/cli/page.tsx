@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { canonicalUrl } from "@/lib/site";
 import { DocsPageHeader } from "@/components/DocsPageHeader";
 import { CodeBlock } from "@/components/CodeBlock";
 import { shell } from "@/lib/styles";
@@ -8,7 +7,7 @@ import { shell } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "CLI Reference — z3rno docs",
   description: "The z3rno CLI's five subcommands, flag tables, and the naive local embedding fallback.",
-  alternates: { canonical: "/docs/cli" },
+  alternates: { canonical: canonicalUrl("/docs/cli") },
 };
 
 const COMMANDS = [
@@ -43,10 +42,7 @@ const COMMANDS = [
 
 export default function CliDocs() {
   return (
-    <>
-      <SiteHeader />
-
-      <main>
+    <main>
         <DocsPageHeader
           title="CLI Reference"
           lede="The standalone z3rno binary (crate z3rno-cli), distributed via crates.io and npm. Every command accepts --tenant (defaults to 'local'); every z3rno serve flag also reads from a matching Z3RNO_* environment variable."
@@ -121,9 +117,6 @@ export default function CliDocs() {
             </p>
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    </main>
   );
 }

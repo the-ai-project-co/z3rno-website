@@ -5,7 +5,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { GithubMark } from "@/components/GithubMark";
 import { BASE_PATH, GITHUB_URL } from "@/lib/site";
+import { NAV_ITEMS, resolveNavTarget } from "@/lib/navigation";
 import { shell } from "@/lib/styles";
+
+type HeaderLink = ReturnType<typeof resolveNavTarget> & { slug: string };
+
+function NavLink({
+  link,
+  mobile = false,
+  onNavigate,
+}: {
+  link: HeaderLink;
+  mobile?: boolean;
+  onNavigate?: () => void;
+}) {
+  const className = mobile
+    ? "border-b border-border py-3.5 text-[14px] font-medium text-text no-underline last:border-b-0"
+    : "rounded-full px-3 py-1.5 no-underline transition-colors hover:bg-bg-subtle hover:text-text";
+  const label = <><span className="text-accent">$</span> {link.slug}</>;
+
+  return link.kind === "route" ? (
+    <Link className={className} href={link.href} onClick={onNavigate}>{label}</Link>
+  ) : (
+    <a className={className} href={link.href} onClick={onNavigate}>{label}</a>
+  );
+}
 
 /** Shared top nav. `homeAnchors` — set on the landing page only, where
  * `#how-it-works`/`#status` are real in-page sections; other pages link
@@ -17,15 +41,10 @@ import { shell } from "@/lib/styles";
  * line divider / caret"). */
 export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
   const [open, setOpen] = useState(false);
-  const howItWorksHref = homeAnchors ? "#how-it-works" : `${BASE_PATH}/#how-it-works`;
-  const statusHref = homeAnchors ? "#status" : `${BASE_PATH}/#status`;
-
-  const links = [
-    { label: "How it works", slug: "how-it-works", href: howItWorksHref, kind: "a" as const },
-    { label: "Docs", slug: "docs", href: "/docs", kind: "link" as const },
-    { label: "Progress", slug: "progress", href: "/progress", kind: "link" as const },
-    { label: "Status", slug: "status", href: statusHref, kind: "a" as const },
-  ];
+  const links = NAV_ITEMS.map((item) => ({
+    ...item,
+    ...resolveNavTarget(item.target, homeAnchors),
+  }));
 
   // Escape closes the mobile panel from anywhere, not just the toggle.
   useEffect(() => {
@@ -57,17 +76,7 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
 
         <div className="hidden items-center gap-3.5 md:flex">
           <nav className="header-pill flex items-center gap-px rounded-full border border-border p-[3px] font-mono text-[13px] text-text-dim">
-            {links.map((l) =>
-              l.kind === "link" ? (
-                <Link key={l.slug} className="rounded-full px-3 py-1.5 no-underline transition-colors hover:bg-bg-subtle hover:text-text" href={l.href}>
-                  <span className="text-accent">$</span> {l.slug}
-                </Link>
-              ) : (
-                <a key={l.slug} className="rounded-full px-3 py-1.5 no-underline transition-colors hover:bg-bg-subtle hover:text-text" href={l.href}>
-                  <span className="text-accent">$</span> {l.slug}
-                </a>
-              ),
-            )}
+            {links.map((link) => <NavLink key={link.slug} link={link} />)}
           </nav>
           <span className="header-caret" aria-hidden="true" />
           <div className="h-5 w-px bg-border" />
@@ -103,27 +112,9 @@ export function SiteHeader({ homeAnchors = false }: { homeAnchors?: boolean }) {
       {open && (
         <div id="mobile-nav" className="mobile-nav-panel border-t border-border md:hidden">
           <nav className={`${shell} flex flex-col py-2 font-mono`}>
-            {links.map((l) =>
-              l.kind === "link" ? (
-                <Link
-                  key={l.slug}
-                  className="border-b border-border py-3.5 text-[14px] font-medium text-text no-underline last:border-b-0"
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                >
-                  <span className="text-accent">$</span> {l.slug}
-                </Link>
-              ) : (
-                <a
-                  key={l.slug}
-                  className="border-b border-border py-3.5 text-[14px] font-medium text-text no-underline last:border-b-0"
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                >
-                  <span className="text-accent">$</span> {l.slug}
-                </a>
-              ),
-            )}
+            {links.map((link) => (
+              <NavLink key={link.slug} link={link} mobile onNavigate={() => setOpen(false)} />
+            ))}
             <a
               href={GITHUB_URL}
               target="_blank"

@@ -15,6 +15,16 @@ All colors, themes, logos, and other brand assets used on this site come from [z
 - **Hosting:** GitHub Pages, built and deployed via GitHub Actions on merge to `main` — live at https://the-ai-project-co.github.io/z3rno-website/.
 - **Content:** kept in sync with the main [z3rno](https://github.com/the-ai-project-co/z3rno) repo — after each shipped slice, this site is updated to reflect it.
 
+## Code organization
+
+- `app/` owns routes and page metadata. The `/docs` layout applies shared site chrome to every docs route.
+- `components/SiteFrame.tsx` owns the header/footer pair; `components/` contains reusable presentation without route content.
+- `lib/navigation.ts` defines route and home-anchor targets and resolves them for the current page. Home anchors include the GitHub Pages base path when reached from another route.
+- `lib/site.ts` owns the Pages base path and canonical URL policy, so route metadata and internal anchors point to the deployed location.
+- `lib/home-content.ts`, `lib/docs.ts`, and `lib/progress.ts` hold editorial data. Page components render those entries and keep layout concerns local.
+
+The site exports static HTML with `npm run build`; `npm run test:export` checks canonical URLs and local links across every route. Webpack keeps the build independent of Turbopack's local process and port requirements. Browser fonts have system fallbacks when Google Fonts is unreachable; no font download is required to build. Navigation and content stay deterministic at build time; there is no service or persistence layer in the website.
+
 ## Status
 
 Live, pre-v1.0.0 launch. Landing page covers the product pitch, architecture, roadmap, and honest pre-launch install status — no packages are published yet.

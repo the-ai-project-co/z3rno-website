@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { canonicalUrl } from "@/lib/site";
 import { DocsPageHeader } from "@/components/DocsPageHeader";
 import { CodeBlock } from "@/components/CodeBlock";
 import { shell } from "@/lib/styles";
@@ -8,7 +7,7 @@ import { shell } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "MCP Setup — z3rno docs",
   description: "Claude Desktop / Cursor config for the z3rno MCP server, its four tools, and local dev setup.",
-  alternates: { canonical: "/docs/mcp" },
+  alternates: { canonical: canonicalUrl("/docs/mcp") },
 };
 
 const TOOLS = [
@@ -42,10 +41,7 @@ const CONFIG_LOCAL = `{"mcpServers": {"z3rno": {"command": "python", "args": ["-
 
 export default function McpDocs() {
   return (
-    <>
-      <SiteHeader />
-
-      <main>
+    <main>
         <DocsPageHeader
           title="MCP Setup"
           lede="An MCP server that gives Claude Desktop, Cursor, Claude Code, or any other MCP client persistent memory backed by z3rno's Rust engine — the four operations exposed as tools."
@@ -123,9 +119,6 @@ export default function McpDocs() {
             />
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    </main>
   );
 }

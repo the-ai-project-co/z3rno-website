@@ -1,0 +1,11 @@
+{
+    "schema_version": 2,
+    "commit": "e8f8e9b826016fe9c699d2f7b47082526e30c1f6",
+    "indexed_at": "2026-10-06T08:51:34Z",
+    "project": "z3rno-website",
+    "nodes": 1310,
+    "edges": 1997,
+    "original_size": 3276800,
+    "compressed_size": 293689,
+    "compression_level": 9
+}
